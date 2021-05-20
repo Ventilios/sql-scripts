@@ -3,6 +3,7 @@
 -- Goal is to limit visibility of audit records AuditPerson = 'Audit1' for database role 'dev_role'.
 -- When it drops out of the function, we assume least privilege and a proper security model is applied.
 -- Limit your sysadmins, limit db_owners, be aware of object owners (database), using schemas & roles.
+-- TODO: Review Trace Flag 3625 to prevent side-channel attack by for example divide-by-zero errors. 
 -- 
 ******************************************************************************************************/
 SET STATISTICS IO ON 
