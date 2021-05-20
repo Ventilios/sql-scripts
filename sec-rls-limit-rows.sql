@@ -3,7 +3,7 @@
 -- Goal is to limit visibility of audit records AuditPerson = 'Audit1' for database role 'dev_role'.
 -- When it drops out of the function, we assume least privilege and a proper security model is applied.
 -- Limit your sysadmins, limit db_owners, be aware of object owners (database), using schemas & roles.
--- TODO: Review Trace Flag 3625 to prevent side-channel attack by for example divide-by-zero errors. 
+-- TODO: Review Trace Flag 3625 to prevent data exposure by for example divide-by-zero or conversion failures. 
 -- 
 ******************************************************************************************************/
 SET STATISTICS IO ON 
@@ -53,7 +53,7 @@ UNION ALL
 SELECT 2021+1000000, N'Audit3', getdate()+1 UNION ALL SELECT 2022+1000000, N'Audit3', getdate()+1;
 GO
 
---SELECT * FROM dbo.Audits;
+-- SELECT * FROM dbo.Audits;
 
 /*****************************************************************************
 -- Add different users to the database that can be used using EXECUTE AS USER
@@ -119,7 +119,6 @@ WITH (STATE = ON);
 /*****************************************************************************
 -- Test different scenarios
 *****************************************************************************/
-
 -- Generates error and no table output
 EXECUTE AS USER = 'usrdbreader'
 SELECT * FROM dbo.Audits OPTION (RECOMPILE);
@@ -167,7 +166,6 @@ EXEC(@sql) AS USER = N'usrdbreader';
 EXEC(@sql) AS USER = N'usrdbowner';
 EXEC(@sql) AS USER = N'usrcolumnsec';
 EXEC(@sql) AS USER = N'usrtworoles';
-
 
 /*
 DROP USER [usrcolumnsec]
