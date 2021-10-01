@@ -1,5 +1,5 @@
 /******************************************************************************************************
--- Create table with Audits example table.
+-- Create table with dbo.Audit, logins, users and row-level security related objects.
 -- Goal is to limit visibility of audit records AuditPerson = 'Audit1' for database role 'dev_role'.
 -- When it drops out of the function, we assume least privilege and a proper security model is applied.
 -- Limit your sysadmins, limit db_owners, be aware of object owners (database), using schemas & roles.
