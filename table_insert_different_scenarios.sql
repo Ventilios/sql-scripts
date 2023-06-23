@@ -287,6 +287,16 @@ FROM cteNum OPTION (maxrecursion 0)
 CREATE CLUSTERED INDEX ix_num  
     ON ##numtable (num);   
 
+/*
+-- Alternative to generate the numbers
+-- Compatibility level 160!
+DROP TABLE IF EXISTS #numtable
+
+SELECT value AS num
+INTO #numtable
+FROM GENERATE_SERIES(1, 100000);
+*/
+
 --
 -- Test 10 - Into temp table
 -- Time: 
